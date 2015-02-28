@@ -1,10 +1,11 @@
 ﻿<?php
 /* BdUtil
-   Liste de toutes les fonctions */
-// Initialisation des constantes
+   Liste de toutes les méthodes */
+// Initialisation des constantes -----------------------------------------------------------------------
 
 
-// Functions
+
+// Méthodes --------------------------------------------------------------------------------------------
 
 /* getBdLink - Renvoie le lien vers la BD
 (void) -> (String) */
@@ -50,16 +51,13 @@ function getUserInfo ($link, $idUser) =
 (link, nameMat) -> (int) */
 function getIdMat ($link, $nameMat) =
 
+/* chgUserInfo - Change les données d'un utilisateur
+(link, idUser, pwd, surname, name, email, country, campFr) -> (void) */
+function chgUserInfo ($link, $idUser, $pwd, $surname, $name, $email, $country, $campFr) =
 
-
-// A définir
-// chgName/Surname/Mail/Country Change le prénom/nom/mail/pays/Campus France de l’utilisateur
-// (link, idUser, pwd/surname/name/email/country/campFr) -> (void)
-// chgDesc/TitleMat
-// (link, idMat) -> (void)
-// chgLvlMatiere
-// (link, idMat) -> (void)
-
+/* chgMatInfo - Change les données d'une matière
+(link, idMat, title, desc, lvlL1, lvlL2, lvlL3, lvlM1, lvlM2) -> (void) */
+function chgMatInfo ($link, $idMat, $title, $desc, $lvlL1, $lvlL2, $lvlL3, $lvlM1, $lvlM2) =
 
 /* addQuest - Créer une nouvelle question dans la BD
 (link, idQuest, idMat, idUser, lvlQuest, quest, answ, goodAnsw, correction, coef) -> (void) */
@@ -71,34 +69,38 @@ function getBdLink ($link, $idQuestion) =
 
 /* statLength - Renvoie la longueur de la table Stat
 (link) -> (int) */
-function getBdLink ($link) =
+function statLength ($link) =
 
 /* addStat - Créer une nouvelle stat dans la BD
-(idQuest, idUser, goodRep, repUser) -> (void) */
-
+(link, idQuest, idUser, goodRep, repUser) -> (void) */
+function addStat ($link, $idQuest, $idUser, $goodRep, $repUser) =
 
 /* occQuest - Renvoie le nombre d'occurence de la question dans la table Stat
 (link, idQuest) -> int */
-
+function occQuest ($link, $idQuest) =
 
 /* nbGoodAnsw - Renvoie le nombre de bonnes réponses envoyées pour une question
 (link, idQuest) -> int */
-
+function nbGoodAnsw ($link, $idQuest) =
 
 /* delStatQuest - Supprime les stats associées à une question dans la table Stat
 (link, idQuest) -> void */
-
+function delStatQuest ($link, $idQuest) =
 
 /* getStatUserMat - Renvoie... 
 (link, idUser, nameMat) -> (nbGoodAnsw, NbQuest) */
-
+function getStatUserMa ($link, $idUser, $nameMat) =
 
 /* getStatUser - Renvoie le nombre de bonnes réponses  et le nombre total de formulaire envoyé pour un utilisateur 
 (link, idUser) -> (nbBonneRep, NbQuestion) */
-
+function getStatUser ($link, $idUser) =
 
 /* listQuestProf - Renvoie un tableau contenant la liste des idQuest écris par le professeur
 (link, idUser) -> [idQuest] */
+function listQuestProf ($link, $idUser) =
+
 /* listEtu - Renvoie la liste des id de tous les utilisateurs de type étudiant
 (link) -> ([idUser]) */
+function listEtu ($link) =
+
 ?>
