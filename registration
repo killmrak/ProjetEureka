@@ -1,0 +1,77 @@
+<?php
+require_once('addUser.php');
+$errors = array();
+
+if(isset($_POST["submit"])){//si nous avons soumis la registration,on recupere les infos
+$errors['login']='';
+$errors['password']='';
+		$surname=$_POST["surname"];
+		$name=$_POST["name"];
+		$country=$_POST["country"];
+		$mail=$_POST["mail"];
+		$campFr=$_POST["campFr"];
+		$login=$_POST["login"];
+		$password=$_POST["password"];
+		$c_password=$_POST["c_password"];//confirmer mot de passe
+		$isProf=0;
+		$isResp=0;
+		$pattern = '/^[-_.a-z\d]{6,16}$/i';//les signes autoriseés
+        $result = preg_match($pattern, $login);
+        if(!$result){
+		 $errors['login']='1)Login est trop court(longue)
+		 2)Les signes interdites';
+		 echo $errors['login'];
+		}
+		 $result = preg_match($pattern, $password);
+        if(!$result){
+		 $errors['password']='1)Password est trop court(longue)
+		 2)Les signes interdites';
+         echo $errors['password'];		 
+		}
+if($password==$c_password){
+if($errors['login']==''&&$errors['password']==''){
+$res=addUser($surname,$name,$country,$mail,$login,$password,$campFr,$isProf,$isResp);
+if($res==true){
+echo "Vous etes enregistré";
+   }
+   else{
+    echo "Login existe deja";
+   }
+}
+
+}
+else{
+$errors="Les mot de passe sont differentes";
+echo $errors;
+}
+}
+?>
+
+<html>
+<head>
+ <title>Registration</title>
+ <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<form method="post" action="registration.php">
+  <input type="text" name="surname" placeholder ="Surname" required / ><br>
+  <input type="text" name="name" placeholder ="name" required / ><br>
+  <input type="text" name="country" placeholder ="country" required / ><br>
+  <input type="text" name="mail" placeholder ="mail" required / ><br>
+  <input type="text" name="campFr" placeholder ="campFr" required / ><br>
+   <div class="row">
+  <input type="text" name="login" placeholder ="login" required / ><br>
+  <div class="error" id="login-error"><?php=$errors['login'];?></div>
+  <div class="instruction" id="login-instruction">Le nom d'utilisateur ne peut être que des lettres latines, des chiffres, '_', '-', '.'. Nom d'utilisateur doit être au moins 4 caractères et pas plus de 16 caractères</div>
+      </div>
+<div class ="row">
+  <input type="password" name="password" placeholder ="password" required / ><br>
+  <div class="error" id="password-error"><?php=$errors['password'];?></div>
+  <div class="instruction" id="password-instruction">Mot de passe ne peut être que des lettres latines, des chiffres, '_', '-', '.'. Mot de passe doit être au moins 4 caractères et pas plus de 16 caractères</div>
+  </div>
+
+  <input type="password" name="c_password" placeholder ="Confirmer password" required / ><br>
+  <input type="submit" name="submit"value="Register"  / >
+   <input type="reset" name="reset"value="Annuler"  / >
+ </form>
